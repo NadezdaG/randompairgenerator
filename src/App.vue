@@ -33,17 +33,22 @@ const clearInputs = () => {
 
 const randomiser = () => {
     console.log(list1.length, list2.length);
-    shuffled.value = true;
-    overlay.value = true;
+    if (list1.length != list2.length) {
+        error.value = true;
+        shuffledList.value = [];
+        shuffled.value = false;
+        overlay.value = false;
+        count.value = 10;
+        return;
+    }
     let i = 0;
     const interval = setInterval(function () {
+
+        shuffled.value = true;
         i++;
         count.value = 10 - i;
-        if (list1.length != list2.length) {
-            error.value = true;
-            shuffledList.value = [];
-            return;
-        }
+        overlay.value = true;
+
         let arr1 = shuffleArray(list1);
         let arr2 = shuffleArray(list2);
         shuffledList.value = arr1.map((item, index) => [item, arr2[index]]);
@@ -103,7 +108,7 @@ const shuffleArray = (array) => {
 
         <div class="rgp-results">
 
-            <button @click="randomiser" v-if="!shuffled">RANDOMISE</button>
+            <button @click="randomiser" v-if="(!shuffled && !error)">RANDOMISE</button>
             <ul v-if="shuffled">
                 <li v-for="(pair) in shuffledList">{{ pair[0] }} {{ pair[1] }}</li>
             </ul>
@@ -114,6 +119,10 @@ const shuffleArray = (array) => {
             </div>
         </div>
     </main>
+    <footer>
+        Github: <a href="https://github.com/NadezdaG/randompairgenerator"
+            target="_blank">https://github.com/NadezdaG/randompairgenerator</a>
+    </footer>
 </template>
 
 <style lang="scss">
@@ -153,6 +162,10 @@ main {
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 0.5fr 1.5fr;
     grid-template-areas: "list1 results" "list2 results";
+}
+
+footer {
+    font-size: 0.7em;
 }
 
 input,
@@ -245,7 +258,7 @@ button {
 #app {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr 30px;
     min-height: 100%;
     position: relative;
     width: 100%;
