@@ -2,8 +2,8 @@
 import { ref, reactive } from "vue";
 
 
-let list1 = reactive([1, 2, 3, 4])
-let list2 = reactive([1, 2, 3, 4])
+let list1 = reactive(["Sam", "Bob", "Jack"])
+let list2 = reactive(["Apple", "Pear", "Potato" ])
 let shuffledList = ref([])
 let newItem1 = ref('');
 let newItem2 = ref('');
@@ -83,7 +83,7 @@ const shuffleArray = (array) => {
         <div class="rpg-list rpg-list--1">
             <h2>List 1</h2>
             <ul>
-                <li v-for="(item, index) in list1">{{ item }} <span @click="remove(index, list1)">(remove)</span></li>
+                <li v-for="(item, index) in list1">{{index}}. {{ item }} <span @click="remove(index, list1)">(remove)</span></li>
                 <li>
                     <form @submit.prevent="addNew(list1, newItem1)">
                         <input placeholder="add new..." v-model="newItem1">
@@ -96,7 +96,7 @@ const shuffleArray = (array) => {
         <div class="rpg-list rpg-list--2">
             <h2>List 2</h2>
             <ul>
-                <li v-for="(item, index) in list2">{{ item }} <span @click="remove(index, list2)">(remove)</span></li>
+                <li v-for="(item, index) in list2">{{index}}. {{ item }} <span @click="remove(index, list2)">(remove)</span></li>
                 <li>
                     <form @submit.prevent="addNew(list2, newItem2)">
                         <input placeholder="add new..." v-model="newItem2">
